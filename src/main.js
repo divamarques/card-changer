@@ -1,4 +1,5 @@
 import "./css/index.css"
+import IMask from "imask";
 
 
 const ccBgColor01 = document.querySelector('.cc-bg svg > g g:nth-child(1) path');
@@ -14,11 +15,20 @@ function setCardType(type) {
     'mastercard': ['#df6f29','#c69347'],
     'default': ['black', 'grey'],
   }
+
   ccBgColor01.setAttribute('fill', colors[type[0]])
   ccBgColor02.setAttribute('fill', colors[type][1])
   ccLogo.setAttribute('src', `cc-${type}.svg`)
 }
 
-setCardType('visa')
+// setCardType('visa')
 
-// globalThis.setCardType = setCardType - disponibiliza a função globalmente
+globalThis.setCardType = setCardType //- disponibiliza a função globalmente
+
+//Security code
+const securityCode = document.querySelector('#security-code')
+const securityCodePattern = {
+  mask: '0000',
+}
+
+const securityCodeMasked = IMask(securityCode, securityCodePattern);
