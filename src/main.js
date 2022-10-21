@@ -7,7 +7,6 @@ const ccBgColor02 = document.querySelector('.cc-bg svg > g g:nth-child(2) path')
 const ccLogo = document.querySelector('.cc-logo span:nth-child(2) img');
 
 
-
 function setCardType(type) {
   
   const colors = {
@@ -21,9 +20,7 @@ function setCardType(type) {
   ccLogo.setAttribute('src', `cc-${type}.svg`)
 }
 
-
 globalThis.setCardType = setCardType 
-
 
 //Security code ======================================================
 const securityCode = document.querySelector('#security-code')
@@ -48,21 +45,19 @@ const expirationDatePattern = {
       mask: IMask.MaskedRange,
       from: 1,
       to: 12
-    }
-  }
+    },
+  },
 }
 
 const expirationDateMasked = IMask(expirationDate, expirationDatePattern)
 //========================================================================
-
 //Card Number
-
 const cardNumber = document.querySelector('#card-number')
 const cardNumberPattern = {
   mask: [
     {
       mask: '0000 0000 0000 0000',
-      regex: /^4\d{0-15}/,
+      regex: /^4\d{0,15}/,
       cardtype: 'visa',
     },
     {
@@ -81,12 +76,12 @@ const cardNumberPattern = {
       return number.match(item.regex)
     })
 
+    console.log(foundMask);
     return foundMask
   },
 }
 
 const cardNumberMasked = IMask(cardNumber, cardNumberPattern)
-
 
 const addButton = document.querySelector('#add-card');
 addButton.addEventListener('click', () => {
@@ -98,8 +93,8 @@ document.querySelector('form').addEventListener('submit', (event) => {
 })
 
 const cardHolderName = document.querySelector('#card-holder')
-cardHolder.addEventListener('input', () => {
-  const ccHolder = document.querySelector('.cc-holder .value')
+  cardHolderName.addEventListener('input', () => {
+  const ccHolder = document.querySelector(".cc-holder .value")
 
   ccHolder.innerText = cardHolderName.value.length === 0 ? 'FULANO DA SILVA' : cardHolderName.value
 })
@@ -123,7 +118,7 @@ cardNumberMasked.on('accept', () => {
 function updateCardNumber(number) {
   const ccNumber = document.querySelector('.cc-number')
 
-  ccNumber.innerText = number.length === 0 ? '1234 5678 9012 3456' : ccNumber
+  ccNumber.innerText = number.length === 0 ? '1234 5678 9012 3456' : number
 }
 
 expirationDateMasked.on('accept', () => {
